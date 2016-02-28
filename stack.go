@@ -1,5 +1,6 @@
-// stack implements heterogeneous stack which allows you to store any type of value
-// in stack including int, float, string and slice
+// This package implements heterogeneous stack which allows you to store any type of value
+// as compared to the built-in slice and maps which will only allow specific types.
+// Its a thread safe so it works pretty well with multiple goroutines.
 package stack
 
 import (
@@ -7,33 +8,33 @@ import (
 	"sync"
 )
 
-// Stack will accept any value type
+// Stack will accept any value type including int, float, string, slice all together.
 type Stack []interface{}
 
 // Declares new error empty Stack
 var emptyStack = errors.New("stack.go : Stack is empty")
 
 // Mutex will synchronize access to stack
-var mutex = &sync.Mutex{}
+var mutex = &sync.RWMutex{}
 
-// Len will return number of element in stack
+// It will return number of element in stack.
 func (s Stack) Len() int {
-	mutex.Lock()
-	defer mutex.Unlock()
+	mutex.RLock()
+	defer mutex.RUnlock()
 	return len(s)
 }
 
-// Cap will return capacity of stack
+// It will return capacity of stack.
 func (s Stack) Cap() int {
-	mutex.Lock()
-	defer mutex.Unlock()
+	mutex.RLock()
+	defer mutex.RUnlock()
 	return cap(s)
 }
 
-// IsEmpty will verify whether thestack is empty or not
+// It will verify whether the stack is empty or not.
 func (s Stack) IsEmpty() bool {
-	mutex.Lock()
-	defer mutex.Unlock()
+	mutex.RLock()
+	defer mutex.RUnlock()
 
 	if len(s) == 0 {
 		return true
@@ -41,17 +42,17 @@ func (s Stack) IsEmpty() bool {
 	return false
 }
 
-// Pushes elements in stack
+// It will push elements in stack.
 func (s *Stack) Push(v interface{}) {
 	mutex.Lock()
 	defer mutex.Unlock()
 	*s = append(*s, v)
 }
 
-// Gives first element from stack
+// It gives first element from stack.
 func (s Stack) Top() (interface{}, error) {
-	mutex.Lock()
-	defer mutex.Unlock()
+	mutex.RLock()
+	defer mutex.RUnlock()
 
 	if len(s) == 0 {
 		return nil, emptyStack
@@ -59,7 +60,7 @@ func (s Stack) Top() (interface{}, error) {
 	return s[len(s)-1], nil
 }
 
-// Pop removes element from stack
+// It will remove element from stack.
 func (s *Stack) Pop() (interface{}, error) {
 	mutex.Lock()
 	defer mutex.Unlock()
