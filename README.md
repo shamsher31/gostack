@@ -54,7 +54,7 @@ func main() {
   fmt.Println("Poped element : ", elem)
   fmt.Println("Elements of stack : ", myStack)
 }
-
+```
 ### Why
 This package is born while learning and experimenting with golang to understand how pointers, mutual exclusion locks and interface works together. 
 
