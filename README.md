@@ -2,6 +2,7 @@
 
 [![Godoc](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/shamsher31/gostack)
 [![Build Status](https://travis-ci.org/shamsher31/gostack.svg)](https://travis-ci.org/shamsher31/gostack)
+[![GitHub release](http://img.shields.io/github/release/shamsher31/gostack.svg?style=flat-square)](release)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](license)
 
 This package implements heterogeneous stack which allows you to store any type of value
